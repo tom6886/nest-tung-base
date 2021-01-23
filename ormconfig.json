@@ -1,0 +1,16 @@
+{
+  "type": "mysql",
+  "host": "47.101.160.249",
+  "port": 3306,
+  "username": "root",
+  "password": "1qaz!@#$",
+  "database": "zhdp",
+  "entities": ["/**/*.entity{.ts,.js}"],
+  "migrations": ["migration/*.ts"],
+  "timezone": "UTC",
+  "charset": "utf8mb4",
+  "multipleStatements": true,
+  "dropSchema": false,
+  "synchronize": true,
+  "logging": true
+}
