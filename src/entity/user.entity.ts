@@ -3,12 +3,13 @@
  * @Date: 2021-01-21 10:38:08
  * @Description:
  * @LastEditors: 汤波
- * @LastEditTime: 2021-01-21 14:01:22
+ * @LastEditTime: 2021-01-25 17:11:28
  * @FilePath: \nest-tung-base\src\entity\user.entity.ts
  */
-import { Column } from 'typeorm';
+import { Column, Entity } from 'typeorm';
 import { BaseEntity } from './base.entity';
 
+@Entity('tc_user')
 export class UserEntity extends BaseEntity {
   @Column()
   username: string;
