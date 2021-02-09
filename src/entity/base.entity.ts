@@ -3,7 +3,7 @@
  * @Date: 2021-01-21 10:14:46
  * @Description:
  * @LastEditors: 汤波
- * @LastEditTime: 2021-01-21 10:39:38
+ * @LastEditTime: 2021-02-09 10:30:41
  * @FilePath: \nest-tung-base\src\entity\base.entity.ts
  */
 import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
@@ -19,9 +19,9 @@ export class BaseEntity {
   @Column('date')
   gmtModified: Date;
 
-  @Column('long')
+  @Column('bigint')
   userCreate: number;
 
-  @Column('long')
+  @Column('bigint')
   userModified: number;
 }

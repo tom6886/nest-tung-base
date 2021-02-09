@@ -3,12 +3,12 @@
  * @Date: 2021-01-25 17:00:17
  * @Description:
  * @LastEditors: 汤波
- * @LastEditTime: 2021-01-25 17:08:06
+ * @LastEditTime: 2021-01-27 15:29:59
  * @FilePath: \nest-tung-base\src\pojo\request.dto.ts
  */
 
-import { pager } from './pager';
+import { PagerQuery } from './pager';
 
-export class userListQuery extends pager {
+export interface UserListQuery extends PagerQuery {
   username: string;
 }

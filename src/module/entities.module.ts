@@ -3,7 +3,7 @@
  * @Date: 2021-01-22 16:39:03
  * @Description:
  * @LastEditors: 汤波
- * @LastEditTime: 2021-01-22 16:40:08
+ * @LastEditTime: 2021-02-03 11:27:31
  * @FilePath: \nest-tung-base\src\module\entities.module.ts
  */
 
@@ -17,4 +17,4 @@ const entityList = [UserEntity];
   imports: [TypeOrmModule.forFeature(entityList)],
   exports: [TypeOrmModule.forFeature(entityList)],
 })
-export class EntityModule {}
+export default class EntityModule {}

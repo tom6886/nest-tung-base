@@ -5,7 +5,7 @@ import { ResultCodeEnum, ResultMessageEnum } from 'src/enum/result-code.enum';
  * @Date: 2021-01-25 17:16:34
  * @Description:
  * @LastEditors: 汤波
- * @LastEditTime: 2021-01-25 17:48:41
+ * @LastEditTime: 2021-02-03 09:57:34
  * @FilePath: \nest-tung-base\src\util\result.ts
  */
 export class R {
@@ -15,10 +15,10 @@ export class R {
 
   data: any;
 
-  static ok(message?: string, data?: unknown): R {
+  static ok(data?: any): R {
     const r = new R();
     r.code = ResultCodeEnum.SUCCESS;
-    r.message = message || ResultMessageEnum.SUCCESS;
+    r.message = ResultMessageEnum.SUCCESS;
     if (data) {
       r.data = data;
     }

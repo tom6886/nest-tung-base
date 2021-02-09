@@ -3,14 +3,16 @@
  * @Date: 2021-01-22 16:55:20
  * @Description:
  * @LastEditors: 汤波
- * @LastEditTime: 2021-01-25 17:15:11
+ * @LastEditTime: 2021-01-27 16:20:02
  * @FilePath: \nest-tung-base\src\service\user.service.ts
  */
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { UserEntity } from 'src/entity/user.entity';
-import { userListQuery } from 'src/pojo/request.dto';
-import { Repository } from 'typeorm';
+import { Pager } from 'src/pojo/pager';
+import { UserListQuery } from 'src/pojo/request.dto';
+import { UserDTO } from 'src/pojo/user.dto';
+import { getConnection, Repository } from 'typeorm';
 
 @Injectable()
 export class UserService {
@@ -19,15 +21,41 @@ export class UserService {
     private readonly userRepository: Repository<UserEntity>,
   ) {}
 
-  async list(queryOption: userListQuery) {
+  async list(queryOption: UserListQuery): Promise<Pager<UserDTO>> {
     const { pageSize = 10, pageNumber = 1, username } = queryOption;
 
     const queryConditionList = [];
 
     if (username) {
-      queryConditionList.push('tc_user.username LIKE :username');
+      queryConditionList.push('tc_user.nickname LIKE :username');
     }
 
-    return null;
+    const [data, total] = await getConnection()
+      .createQueryBuilder<UserDTO>(UserEntity, 'a')
+      .leftJoinAndSelect(UserEntity, 'b', 'a.user_create=b.id')
+      .leftJoinAndSelect(UserEntity, 'c', 'a.user_modified=c.id')
+      .andWhere(queryConditionList[0], {
+        username: `%${username}%`,
+      })
+      .orderBy({ 'a.gmt_create': 'DESC' })
+      .skip((pageNumber - 1) * pageSize)
+      .take(pageSize)
+      .select([
+        'a.id',
+        'a.nickname',
+        'a.username',
+        'a.role_id as roleId',
+        'b.nickname as creator',
+        'c.nickname as modifier',
+      ])
+      .printSql()
+      .getManyAndCount();
+
+    return {
+      total,
+      size: pageSize,
+      current: pageNumber,
+      records: data,
+    };
   }
 }
