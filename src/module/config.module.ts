@@ -3,10 +3,10 @@
  * @Date: 2021-02-03 15:37:10
  * @Description:
  * @LastEditors: 汤波
- * @LastEditTime: 2021-02-15 11:13:10
+ * @LastEditTime: 2021-02-15 23:04:36
  * @FilePath: \nest-tung-base\src\module\config.module.ts
  */
-
+import 'dotenv/config';
 import { Module } from '@nestjs/common';
 import { NacosConfigClient } from 'nacos';
 import ConfigService from 'src/config/config.service';
@@ -21,7 +21,7 @@ import ConfigService from 'src/config/config.service';
           namespace: process.env.CONFIG_NAMESPACE,
         });
         // get config once
-        const content = await configClient.getConfig('1', 'NEST_GROUP');
+        const content = await configClient.getConfig('1', 'DEFAULT_GROUP');
         return new ConfigService(JSON.parse(content));
       },
     },

@@ -3,7 +3,7 @@
  * @Date: 2021-02-03 14:16:59
  * @Description:
  * @LastEditors: 汤波
- * @LastEditTime: 2021-02-09 11:14:24
+ * @LastEditTime: 2021-02-15 23:02:34
  * @FilePath: \nest-tung-base\src\config\config.service.ts
  */
 import { Injectable } from '@nestjs/common';
@@ -14,11 +14,8 @@ import { TypeormConfig } from 'src/interface/typeorm.interface';
 export default class ConfigService {
   private readonly envConfig: { [key: string]: any };
 
-  private readonly envConfig1: string;
-
   constructor(config: any) {
     this.envConfig = this.validateInput(config);
-    this.envConfig1 = 'test';
   }
 
   /**
@@ -26,8 +23,9 @@ export default class ConfigService {
    * including the applied default values.
    */
   private validateInput(envConfig: {
-    [key: string]: string;
-  }): { [key: string]: string } {
+    [key: string]: any;
+  }): { [key: string]: any } {
+    console.log(envConfig);
     const envVarsSchema: Joi.ObjectSchema = Joi.object({
       port: Joi.number().default(80),
       prefix: Joi.string().default('api'),
