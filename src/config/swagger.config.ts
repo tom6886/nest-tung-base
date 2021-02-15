@@ -3,7 +3,7 @@
  * @Date: 2021-02-03 09:19:12
  * @Description:
  * @LastEditors: 汤波
- * @LastEditTime: 2021-02-04 09:35:52
+ * @LastEditTime: 2021-02-15 11:14:15
  * @FilePath: \nest-tung-base\src\config\swagger.config.ts
  */
 
@@ -18,6 +18,5 @@ const config = new DocumentBuilder()
 
 export const initSwagger = (app: any) => {
   const document = SwaggerModule.createDocument(app, config);
-  // SwaggerModule.setup(`${AppModule.prefix}/docs`, app, document);
-  SwaggerModule.setup(`/docs`, app, document);
+  SwaggerModule.setup(`${AppModule.prefix}/docs`, app, document);
 };

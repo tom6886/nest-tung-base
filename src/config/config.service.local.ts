@@ -3,8 +3,8 @@
  * @Date: 2021-02-03 14:16:59
  * @Description:
  * @LastEditors: 汤波
- * @LastEditTime: 2021-02-04 08:59:51
- * @FilePath: \nest-tung-base\src\config\config.service.ts
+ * @LastEditTime: 2021-02-15 11:13:47
+ * @FilePath: \nest-tung-base\src\config\config.service.local.ts
  */
 import * as dotenv from 'dotenv';
 import * as fs from 'fs';

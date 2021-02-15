@@ -5,7 +5,7 @@ import { ResultCodeEnum, ResultMessageEnum } from 'src/enum/result-code.enum';
  * @Date: 2021-01-25 17:16:34
  * @Description:
  * @LastEditors: 汤波
- * @LastEditTime: 2021-02-03 09:57:34
+ * @LastEditTime: 2021-02-15 11:15:17
  * @FilePath: \nest-tung-base\src\util\result.ts
  */
 export class R {

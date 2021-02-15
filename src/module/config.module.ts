@@ -3,7 +3,7 @@
  * @Date: 2021-02-03 15:37:10
  * @Description:
  * @LastEditors: 汤波
- * @LastEditTime: 2021-02-05 17:32:55
+ * @LastEditTime: 2021-02-15 11:13:10
  * @FilePath: \nest-tung-base\src\module\config.module.ts
  */
 
@@ -17,8 +17,8 @@ import ConfigService from 'src/config/config.service';
       provide: ConfigService,
       useFactory: async () => {
         const configClient = new NacosConfigClient({
-          serverAddr: '192.168.207.40:8848',
-          namespace: '0ccfebd1-bcff-4e2d-9436-2e780fb3ae16',
+          serverAddr: process.env.CONFIG_SERVER,
+          namespace: process.env.CONFIG_NAMESPACE,
         });
         // get config once
         const content = await configClient.getConfig('1', 'NEST_GROUP');

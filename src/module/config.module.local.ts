@@ -3,8 +3,8 @@
  * @Date: 2021-02-03 15:37:10
  * @Description:
  * @LastEditors: 汤波
- * @LastEditTime: 2021-02-03 16:56:09
- * @FilePath: \nest-tung-base\src\module\config.module.ts
+ * @LastEditTime: 2021-02-15 11:14:32
+ * @FilePath: \nest-tung-base\src\module\config.module.local.ts
  */
 
 import { Module } from '@nestjs/common';

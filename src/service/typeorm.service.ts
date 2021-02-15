@@ -3,7 +3,7 @@
  * @Date: 2021-02-05 16:57:47
  * @Description:
  * @LastEditors: 汤波
- * @LastEditTime: 2021-02-09 10:21:07
+ * @LastEditTime: 2021-02-15 11:15:08
  * @FilePath: \nest-tung-base\src\service\typeorm.service.ts
  */
 import { Injectable } from '@nestjs/common';
@@ -13,11 +13,13 @@ import ConfigService from 'src/config/config.service';
 @Injectable()
 export class TypeOrmConfigService implements TypeOrmOptionsFactory {
   // 注入config service取得env变量
-  constructor(private readonly configService: ConfigService) {} // 就是回传TypeOrmOptions对象
+  constructor(private readonly configService: ConfigService) {}
+
+  // 就是回传TypeOrmOptions对象
   createTypeOrmOptions(): TypeOrmModuleOptions {
     const config = this.configService.getTypeorm();
     return {
-      type: 'mysql', // configService.get('DB_TYPE') as DatabaseType,
+      type: 'mysql',
       host: config.host,
       port: config.port,
       username: config.username,

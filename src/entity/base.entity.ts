@@ -3,7 +3,7 @@
  * @Date: 2021-01-21 10:14:46
  * @Description:
  * @LastEditors: 汤波
- * @LastEditTime: 2021-02-09 10:30:41
+ * @LastEditTime: 2021-02-15 11:14:22
  * @FilePath: \nest-tung-base\src\entity\base.entity.ts
  */
 import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
