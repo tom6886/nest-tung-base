@@ -3,7 +3,7 @@
  * @Date: 2021-01-19 14:46:50
  * @Description:
  * @LastEditors: 汤波
- * @LastEditTime: 2021-02-16 12:36:29
+ * @LastEditTime: 2021-02-16 17:31:41
  * @FilePath: \nest-tung-base\src\main.ts
  */
 import { Logger } from '@nestjs/common';
@@ -21,6 +21,10 @@ async function bootstrap() {
   // 初始化swagger
   initSwagger(app);
 
-  await app.listen(AppModule.port);
+  await app.listen(AppModule.port, () => {
+    Logger.log(
+      `服务已经启动,请访问:http://wwww.localhost:${AppModule.port}/${AppModule.prefix}`,
+    );
+  });
 }
 bootstrap().catch((e) => Logger.error('错误', e));

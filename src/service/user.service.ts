@@ -3,7 +3,7 @@
  * @Date: 2021-01-22 16:55:20
  * @Description:
  * @LastEditors: 汤波
- * @LastEditTime: 2021-01-27 16:20:02
+ * @LastEditTime: 2021-02-16 21:36:38
  * @FilePath: \nest-tung-base\src\service\user.service.ts
  */
 import { Injectable } from '@nestjs/common';
@@ -27,7 +27,7 @@ export class UserService {
     const queryConditionList = [];
 
     if (username) {
-      queryConditionList.push('tc_user.nickname LIKE :username');
+      queryConditionList.push('a.nickname LIKE :username');
     }
 
     const [data, total] = await getConnection()
@@ -37,17 +37,10 @@ export class UserService {
       .andWhere(queryConditionList[0], {
         username: `%${username}%`,
       })
-      .orderBy({ 'a.gmt_create': 'DESC' })
+      // .orderBy({ 'a.gmtCreate': 'DESC' })
       .skip((pageNumber - 1) * pageSize)
       .take(pageSize)
-      .select([
-        'a.id',
-        'a.nickname',
-        'a.username',
-        'a.role_id as roleId',
-        'b.nickname as creator',
-        'c.nickname as modifier',
-      ])
+      .select(['a.id', 'a.nickname', 'a.username'])
       .printSql()
       .getManyAndCount();
 

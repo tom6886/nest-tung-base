@@ -11,7 +11,4 @@ export interface UserDTO {
   id: string;
   nickname: string;
   username: string;
-  roleId: string;
-  creator: string;
-  modifier: string;
 }

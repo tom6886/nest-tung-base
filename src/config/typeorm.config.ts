@@ -3,12 +3,14 @@
  * @Date: 2021-02-05 16:57:47
  * @Description:
  * @LastEditors: 汤波
- * @LastEditTime: 2021-02-16 12:36:08
+ * @LastEditTime: 2021-02-16 21:24:27
  * @FilePath: \nest-tung-base\src\config\typeorm.config.ts
  */
 import { Injectable } from '@nestjs/common';
 import { TypeOrmModuleOptions, TypeOrmOptionsFactory } from '@nestjs/typeorm';
 import ConfigService from 'src/config/config.service';
+import { UserEntity } from 'src/entity/user.entity';
+import { UserView } from 'src/entity/user.view';
 
 @Injectable()
 export class TypeOrmConfig implements TypeOrmOptionsFactory {
@@ -18,6 +20,7 @@ export class TypeOrmConfig implements TypeOrmOptionsFactory {
   // 就是回传TypeOrmOptions对象
   createTypeOrmOptions(): TypeOrmModuleOptions {
     const config = this.configService.getTypeorm();
+    console.log(config);
     return {
       type: 'mysql',
       host: config.host,
@@ -27,7 +30,7 @@ export class TypeOrmConfig implements TypeOrmOptionsFactory {
       database: config.database,
       synchronize: config.synchronize,
       logging: config.logging,
-      entities: [__dirname + '/../**/*.entity{.ts,.js}'],
+      entities: [UserEntity, UserView],
       timezone: config.timezone,
     };
   }
