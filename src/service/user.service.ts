@@ -3,16 +3,15 @@
  * @Date: 2021-01-22 16:55:20
  * @Description:
  * @LastEditors: 汤波
- * @LastEditTime: 2021-02-16 21:36:38
+ * @LastEditTime: 2021-02-18 17:04:20
  * @FilePath: \nest-tung-base\src\service\user.service.ts
  */
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { UserEntity } from 'src/entity/user.entity';
-import { Pager } from 'src/pojo/pager';
-import { UserListQuery } from 'src/pojo/request.dto';
-import { UserDTO } from 'src/pojo/user.dto';
-import { getConnection, Repository } from 'typeorm';
+import { UserListQueryDTO } from 'src/pojo/request.dto';
+import { Pager, UserDTO } from 'src/pojo/response.dto';
+import { getConnection, getRepository, Repository } from 'typeorm';
 
 @Injectable()
 export class UserService {
@@ -21,7 +20,14 @@ export class UserService {
     private readonly userRepository: Repository<UserEntity>,
   ) {}
 
-  async list(queryOption: UserListQuery): Promise<Pager<UserDTO>> {
+  async findOne(username: string): Promise<UserEntity> {
+    return await getRepository(UserEntity)
+      .createQueryBuilder('user')
+      .where('user.username=:username', { username: username })
+      .getOne();
+  }
+
+  async list(queryOption: UserListQueryDTO): Promise<Pager<UserDTO>> {
     const { pageSize = 10, pageNumber = 1, username } = queryOption;
 
     const queryConditionList = [];

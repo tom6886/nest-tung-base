@@ -3,10 +3,10 @@
  * @Date: 2021-01-19 14:46:50
  * @Description:
  * @LastEditors: 汤波
- * @LastEditTime: 2021-02-16 17:31:41
+ * @LastEditTime: 2021-02-18 18:03:38
  * @FilePath: \nest-tung-base\src\main.ts
  */
-import { Logger } from '@nestjs/common';
+import { Logger, ValidationPipe } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import * as helmet from 'helmet';
@@ -18,6 +18,8 @@ async function bootstrap() {
   app.setGlobalPrefix(AppModule.prefix);
   // 使用helmet全部功能，防止Web漏洞
   app.use(helmet());
+  //增加验证管道
+  app.useGlobalPipes(new ValidationPipe());
   // 初始化swagger
   initSwagger(app);
 
