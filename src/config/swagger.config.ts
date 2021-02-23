@@ -3,7 +3,7 @@
  * @Date: 2021-02-03 09:19:12
  * @Description:
  * @LastEditors: 汤波
- * @LastEditTime: 2021-02-16 17:11:34
+ * @LastEditTime: 2021-02-22 18:50:16
  * @FilePath: \nest-tung-base\src\config\swagger.config.ts
  */
 

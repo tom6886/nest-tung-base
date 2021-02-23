@@ -3,11 +3,11 @@
  * @Date: 2021-02-03 14:16:59
  * @Description:
  * @LastEditors: 汤波
- * @LastEditTime: 2021-02-16 12:35:31
+ * @LastEditTime: 2021-02-23 13:07:38
  * @FilePath: \nest-tung-base\src\config\config.service.ts
  */
 import * as Joi from 'joi';
-import { TypeormConfig } from 'src/interface/typeorm.interface';
+import { TypeormConfig, JwtConfig } from 'src/interface/config.interface';
 
 export default class ConfigService {
   private readonly envConfig: { [key: string]: any };
@@ -27,6 +27,7 @@ export default class ConfigService {
       port: Joi.number().default(80),
       prefix: Joi.string().default('api'),
       typeorm: Joi.object(),
+      jwt: Joi.object(),
     });
 
     const { error, value: validatedEnvConfig } = envVarsSchema.validate(
@@ -48,5 +49,10 @@ export default class ConfigService {
 
   public getTypeorm(): TypeormConfig {
     return this.envConfig.typeorm;
+  }
+
+  public getJwt(): JwtConfig {
+    console.log(this.envConfig.jwt);
+    return this.envConfig.jwt;
   }
 }

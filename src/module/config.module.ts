@@ -3,7 +3,7 @@
  * @Date: 2021-02-03 15:37:10
  * @Description:
  * @LastEditors: 汤波
- * @LastEditTime: 2021-02-18 18:00:46
+ * @LastEditTime: 2021-02-23 13:02:59
  * @FilePath: \nest-tung-base\src\module\config.module.ts
  */
 import 'dotenv/config';
@@ -22,6 +22,7 @@ import ConfigService from 'src/config/config.service';
         });
         // get config once
         const content = await configClient.getConfig('1', 'NEST_GROUP');
+        console.log(content);
         return new ConfigService(JSON.parse(content));
       },
     },

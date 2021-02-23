@@ -3,7 +3,7 @@
  * @Date: 2021-01-19 14:46:50
  * @Description:
  * @LastEditors: 汤波
- * @LastEditTime: 2021-02-18 09:54:59
+ * @LastEditTime: 2021-02-23 13:00:56
  * @FilePath: \nest-tung-base\src\app.module.ts
  */
 import { Module } from '@nestjs/common';
