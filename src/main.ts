@@ -3,14 +3,17 @@
  * @Date: 2021-01-19 14:46:50
  * @Description:
  * @LastEditors: 汤波
- * @LastEditTime: 2021-02-18 18:03:38
+ * @LastEditTime: 2021-02-25 15:14:33
  * @FilePath: \nest-tung-base\src\main.ts
  */
-import { Logger, ValidationPipe } from '@nestjs/common';
+import { HttpStatus, Logger, ValidationPipe } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import * as helmet from 'helmet';
 import { initSwagger } from './config/swagger.config';
+import { HttpExceptionFilter } from './exception/http-exception.filter';
+import { HttpException } from '@nestjs/common';
+import { ResultCodeEnum } from './enum/result-code.enum';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
@@ -19,7 +22,23 @@ async function bootstrap() {
   // 使用helmet全部功能，防止Web漏洞
   app.use(helmet());
   //增加验证管道
-  app.useGlobalPipes(new ValidationPipe());
+  app.useGlobalPipes(
+    new ValidationPipe({
+      exceptionFactory: (validationErrors = []) => {
+        throw new HttpException(
+          {
+            code: ResultCodeEnum.PARAM_ERROR,
+            message: Object.values(validationErrors[0].constraints)[0],
+          },
+          HttpStatus.OK,
+        );
+      },
+    }),
+  );
+
+  // 全局注册错误的过滤器(错误异常)
+  app.useGlobalFilters(new HttpExceptionFilter());
+
   // 初始化swagger
   initSwagger(app);
 
