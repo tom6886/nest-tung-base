@@ -3,15 +3,14 @@
  * @Date: 2021-02-23 13:00:17
  * @Description:
  * @LastEditors: 汤波
- * @LastEditTime: 2021-02-23 17:21:55
+ * @LastEditTime: 2021-02-26 16:01:02
  * @FilePath: \nest-tung-base\src\module\auth.module.ts
  */
 
 import { Module } from '@nestjs/common';
 import { JwtModule } from '@nestjs/jwt';
+import { JwtCreate } from 'src/auth/jwt.create';
 import ConfigService from 'src/config/config.service';
-import { JwtCreateService } from 'src/service/jwt-create.service';
-import { JwtStrategyService } from 'src/service/jwt-strategy.service';
 import ConfigModule from './config.module';
 
 @Module({
@@ -28,7 +27,7 @@ import ConfigModule from './config.module';
       }),
     }),
   ],
-  providers: [JwtCreateService, JwtStrategyService],
-  exports: [JwtCreateService],
+  providers: [JwtCreate],
+  exports: [JwtCreate],
 })
 export class AuthModule {}

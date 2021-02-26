@@ -3,7 +3,7 @@
  * @Date: 2021-01-19 14:46:50
  * @Description:
  * @LastEditors: 汤波
- * @LastEditTime: 2021-02-25 15:14:33
+ * @LastEditTime: 2021-02-26 17:07:35
  * @FilePath: \nest-tung-base\src\main.ts
  */
 import { HttpStatus, Logger, ValidationPipe } from '@nestjs/common';
@@ -14,6 +14,8 @@ import { initSwagger } from './config/swagger.config';
 import { HttpExceptionFilter } from './exception/http-exception.filter';
 import { HttpException } from '@nestjs/common';
 import { ResultCodeEnum } from './enum/result-code.enum';
+import { AuthGuard } from './auth/auth.guard';
+import { JwtService } from '@nestjs/jwt';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
@@ -38,6 +40,10 @@ async function bootstrap() {
 
   // 全局注册错误的过滤器(错误异常)
   app.useGlobalFilters(new HttpExceptionFilter());
+
+  // 全局注册权限守卫管道
+  const jwtService = app.get<JwtService>(JwtService);
+  app.useGlobalGuards(new AuthGuard(AppModule.prefix, jwtService));
 
   // 初始化swagger
   initSwagger(app);

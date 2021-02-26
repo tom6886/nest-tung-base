@@ -3,23 +3,23 @@
  * @Date: 2021-01-27 16:39:22
  * @Description:
  * @LastEditors: 汤波
- * @LastEditTime: 2021-02-23 13:32:27
+ * @LastEditTime: 2021-02-26 17:27:28
  * @FilePath: \nest-tung-base\src\controller\user.controller.ts
  */
-import { Body, Controller, Post } from '@nestjs/common';
-import { ApiOperation, ApiTags } from '@nestjs/swagger';
+import { Body, Controller, Post, Request } from '@nestjs/common';
+import { ApiHeader, ApiOperation, ApiTags } from '@nestjs/swagger';
 import { UserListQueryDTO, UserLoginDTO } from 'src/pojo/request.dto';
 import { UserService } from 'src/service/user.service';
 import { R } from 'src/util/result';
 import * as crypto from 'crypto';
-import { JwtCreateService } from 'src/service/jwt-create.service';
+import { JwtCreate } from 'src/auth/jwt.create';
 
 @ApiTags('用户')
 @Controller('/system/user')
 export class UserController {
   constructor(
     private readonly userService: UserService,
-    private readonly jwtService: JwtCreateService,
+    private readonly jwtService: JwtCreate,
   ) {}
 
   @ApiOperation({ description: '用户登录' })
@@ -30,9 +30,7 @@ export class UserController {
     if (user == null) {
       return R.fail('账号或密码错误');
     }
-    console.log(
-      crypto.createHash('md5').update(userLogin.password).digest('hex'),
-    );
+
     if (
       crypto.createHash('md5').update(userLogin.password).digest('hex') !==
       user.password
@@ -44,6 +42,11 @@ export class UserController {
   }
 
   @ApiOperation({ description: '分页查询用户' })
+  @ApiHeader({
+    name: 'token',
+    required: true,
+    description: '本次请求请带上token',
+  })
   @Post('/list')
   async list(@Body() queryOption: UserListQueryDTO): Promise<R> {
     return R.ok(await this.userService.list(queryOption));

@@ -3,7 +3,7 @@
  * @Date: 2021-02-05 16:57:47
  * @Description:
  * @LastEditors: 汤波
- * @LastEditTime: 2021-02-18 18:00:33
+ * @LastEditTime: 2021-02-26 10:39:25
  * @FilePath: \nest-tung-base\src\config\typeorm.config.ts
  */
 import { Injectable } from '@nestjs/common';
@@ -20,7 +20,6 @@ export class TypeOrmConfig implements TypeOrmOptionsFactory {
   // 就是回传TypeOrmOptions对象
   createTypeOrmOptions(): TypeOrmModuleOptions {
     const config = this.configService.getTypeorm();
-    console.log(config);
     return {
       type: 'mysql',
       host: config.host,

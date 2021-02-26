@@ -3,7 +3,7 @@
  * @Date: 2021-02-03 14:16:59
  * @Description:
  * @LastEditors: 汤波
- * @LastEditTime: 2021-02-23 13:07:38
+ * @LastEditTime: 2021-02-26 10:39:17
  * @FilePath: \nest-tung-base\src\config\config.service.ts
  */
 import * as Joi from 'joi';
@@ -52,7 +52,6 @@ export default class ConfigService {
   }
 
   public getJwt(): JwtConfig {
-    console.log(this.envConfig.jwt);
     return this.envConfig.jwt;
   }
 }

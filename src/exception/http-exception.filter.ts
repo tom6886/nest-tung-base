@@ -3,7 +3,7 @@
  * @Date: 2021-02-25 10:15:04
  * @Description:
  * @LastEditors: 汤波
- * @LastEditTime: 2021-02-25 15:50:34
+ * @LastEditTime: 2021-02-26 17:06:05
  * @FilePath: \nest-tung-base\src\exception\http-exception.filter.ts
  */
 
@@ -24,19 +24,30 @@ export class HttpExceptionFilter implements ExceptionFilter {
     if (typeof result === 'string') {
       result = JSON.parse(result);
     }
-    console.log(JSON.stringify(result));
 
+    // 捕获常规异常
     if ('code' in (result as any) && 'message' in (result as any)) {
       response.status(status).json(result);
-    } else {
+      return;
+    }
+
+    // 捕获授权异常
+    if ('statusCode' in (result as any) && (result as any).statusCode === 401) {
       response
         .status(status)
         .json(
-          R.error(
-            ResultCodeEnum.INTERNAL_SERVER_ERROR,
-            ResultMessageEnum.INTERNAL_SERVER_ERROR,
-          ),
+          R.error(ResultCodeEnum.UNAUTHORIZED, ResultMessageEnum.UNAUTHORIZED),
         );
+      return;
     }
+
+    response
+      .status(status)
+      .json(
+        R.error(
+          ResultCodeEnum.INTERNAL_SERVER_ERROR,
+          ResultMessageEnum.INTERNAL_SERVER_ERROR,
+        ),
+      );
   }
 }
