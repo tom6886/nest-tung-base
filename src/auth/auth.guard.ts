@@ -3,7 +3,7 @@
  * @Date: 2021-02-26 15:22:50
  * @Description:
  * @LastEditors: 汤波
- * @LastEditTime: 2021-02-26 17:27:08
+ * @LastEditTime: 2021-02-27 10:23:18
  * @FilePath: \nest-tung-base\src\auth\auth.guard.ts
  */
 import {
@@ -29,8 +29,6 @@ export class AuthGuard implements CanActivate {
 
     const token = _context.switchToRpc().getData().headers.token;
 
-    console.log(token);
-
     if (this.whiteList.indexOf(request.url.replace(this.prefix, '')) > -1) {
       return true;
     }
@@ -43,6 +41,21 @@ export class AuthGuard implements CanActivate {
     }
 
     const payload = this.jwtService.decode(token);
+    console.log(payload);
+
+    if (
+      !payload ||
+      !('exp' in (payload as any)) ||
+      !('username' in (payload as any))
+    ) {
+      throw new HttpException(
+        R.error(
+          ResultCodeEnum.ILLEGAL_REQUEST,
+          ResultMessageEnum.ILLEGAL_REQUEST,
+        ),
+        HttpStatus.UNAUTHORIZED,
+      );
+    }
 
     if (payload['exp'] * 1000 < new Date().getTime()) {
       throw new HttpException(
