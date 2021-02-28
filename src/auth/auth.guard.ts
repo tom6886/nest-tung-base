@@ -3,7 +3,7 @@
  * @Date: 2021-02-26 15:22:50
  * @Description:
  * @LastEditors: 汤波
- * @LastEditTime: 2021-02-27 10:23:18
+ * @LastEditTime: 2021-02-28 10:52:22
  * @FilePath: \nest-tung-base\src\auth\auth.guard.ts
  */
 import {
@@ -29,7 +29,9 @@ export class AuthGuard implements CanActivate {
 
     const token = _context.switchToRpc().getData().headers.token;
 
-    if (this.whiteList.indexOf(request.url.replace(this.prefix, '')) > -1) {
+    if (
+      this.whiteList.indexOf(request.url.replace('/' + this.prefix, '')) > -1
+    ) {
       return true;
     }
 

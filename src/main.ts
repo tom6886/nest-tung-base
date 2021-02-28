@@ -3,7 +3,7 @@
  * @Date: 2021-01-19 14:46:50
  * @Description:
  * @LastEditors: 汤波
- * @LastEditTime: 2021-02-26 17:07:35
+ * @LastEditTime: 2021-02-28 11:02:14
  * @FilePath: \nest-tung-base\src\main.ts
  */
 import { HttpStatus, Logger, ValidationPipe } from '@nestjs/common';
@@ -16,11 +16,22 @@ import { HttpException } from '@nestjs/common';
 import { ResultCodeEnum } from './enum/result-code.enum';
 import { AuthGuard } from './auth/auth.guard';
 import { JwtService } from '@nestjs/jwt';
+import { createProxyMiddleware } from 'http-proxy-middleware';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   // 给请求添加prefix
   app.setGlobalPrefix(AppModule.prefix);
+
+  // 转发所有以 api 开头的请求
+  app.use(
+    '/api',
+    createProxyMiddleware({
+      target: 'http://127.0.0.1:8080',
+      changeOrigin: true,
+    }),
+  );
+
   // 使用helmet全部功能，防止Web漏洞
   app.use(helmet());
   //增加验证管道

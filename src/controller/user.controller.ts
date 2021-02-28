@@ -3,10 +3,10 @@
  * @Date: 2021-01-27 16:39:22
  * @Description:
  * @LastEditors: 汤波
- * @LastEditTime: 2021-02-27 09:12:41
+ * @LastEditTime: 2021-02-28 10:53:10
  * @FilePath: \nest-tung-base\src\controller\user.controller.ts
  */
-import { Body, Controller, Post, Request } from '@nestjs/common';
+import { Body, Controller, Post } from '@nestjs/common';
 import { ApiHeader, ApiOperation, ApiTags } from '@nestjs/swagger';
 import { UserListQueryDTO, UserLoginDTO } from 'src/pojo/request.dto';
 import { UserService } from 'src/service/user.service';
